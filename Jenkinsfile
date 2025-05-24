@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Stage 1 Build') {
             steps {
-                echo 'building using.'
+                echo 'building using..'
                 git url: 'https://github.com/PrashansaPokhrel/Jenkins-Pipeline.git', branch: 'main'
             }
         }
