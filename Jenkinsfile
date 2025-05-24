@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Stage 1') {
             steps {
                 echo 'Checking out source code...'
                 git url: 'https://github.com/PrashansaPokhrel/Jenkins-Pipeline.git', branch: 'main'
