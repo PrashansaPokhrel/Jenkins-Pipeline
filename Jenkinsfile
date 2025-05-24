@@ -2,52 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building the application...'
-                bat 'mvn clean package' // Using Maven
+                echo 'Checking out source code...'
+                git url: 'https://github.com/PrashansaPokhrel/Jenkins-Pipeline.git', branch: 'main'
             }
         }
         
-        stage('Unit and Integration Tests') {
+        stage('Build') {
             steps {
-                echo 'Running unit and integration tests...'
-                bat 'mvn test' // Using JUnit & Selenium
+                echo 'Building the project...'
             }
         }
 
-        stage('Code Analysis') {
+        stage('Test') {
             steps {
-                echo 'Analyzing code for quality and standards...'
-                bat 'sonar-scanner' // Using SonarQube
+                echo 'Running tests...'
             }
         }
 
-        stage('Security Scan') {
+        stage('Deploy') {
             steps {
-                echo 'Performing security scan...'
-                bat 'dependency-check.bat --project Jenkins-Pipeline --scan .' // OWASP Dependency-Check
-            }
-        }
-
-        stage('Deploy to Staging') {
-            steps {
-                echo 'Deploying to Staging environment...'
-                bat 'scp target/app.jar user@staging-server:/deploy/' // AWS EC2
-            }
-        }
-
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running integration tests on staging...'
-                bat 'postman run staging_tests.json' // Using Postman & Selenium
-            }
-        }
-
-        stage('Deploy to Production') {
-            steps {
-                echo 'Deploying to Production...'
-                bat 'scp target/app.jar user@production-server:/deploy/' // AWS EC2
+                echo 'Deploying the application...'
             }
         }
     }
